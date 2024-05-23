@@ -1,0 +1,23 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password: password
+  host: db
+
+development:
+  <<: *default
+  database: quotes_app_development
+
+test:
+  <<: *default
+  database: baskelog_test
+
+production:
+  <<: *default
+  url: <%= (ENV['CLEARDB_DATABASE_URL'] || '').sub(/^mysql/, 'mysql2') %>
+  database: <%= ENV['DATABASE_NAME'] || 'baskelog_production' %>
+  username: <%= ENV['DATABASE_USERNAME'] || 'root' %>
+  password: <%= ENV['DATABASE_PASSWORD'] || 'password' %>
+  host: <%= ENV['DATABASE_HOST'] || 'db' %>

@@ -1,0 +1,30 @@
+create_table "users", force: :cascade do |t|
+  t.string   "user_id",             null: false
+  t.string   "email",              null: false
+  t.datetime "created_at",         null: false
+  t.datetime "updated_at",         null: false
+end
+
+create_table "shot_logs", force: :cascade do |t|
+  t.integer "user_id", null: false
+  t.integer "shot_position_id", null: false
+  t.integer "try_count", default: 0, null: false
+  t.integer "made_count", default: 0, null: false
+  t.datetime "shot_at", null: false
+  t.datetime "created_at", null: false
+  t.datetime "updated_at", null: false
+  t.datetime "deleted_at"
+end
+
+create_table "shot_positions", force: :cascade do |t|
+  t.string "name", null: false
+  t.string "category"
+  t.datetime "created_at", null: false
+  t.datetime "updated_at", null: false
+end
+
+add_index "shot_logs", ["user_id"], name: "index_shot_logs_on_user_id"
+add_index "shot_logs", ["shot_position_id"], name: "index_shot_logs_on_shot_position_id"
+
+add_index "users", ["user_id"], unique: true, name: "index_users_on_user_id"
+add_index "users", ["email"], unique: true, name: "index_users_on_email"
